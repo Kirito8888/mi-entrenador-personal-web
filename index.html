@@ -26,6 +26,26 @@
         ::-webkit-scrollbar-thumb:hover {
             background: #64748b;
         }
+        /* Style for date input for better cross-browser consistency */
+        input[type="date"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            background-color: #ffffff;
+            border: 1px solid #cbd5e1; /* slate-300 */
+            border-radius: 0.75rem; /* rounded-xl */
+            padding: 0.75rem 1.25rem; /* py-3 px-5 */
+            font-size: 1rem; /* text-base */
+            line-height: 1.5;
+            color: #475569; /* slate-700 */
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+        input[type="date"]:focus {
+            outline: none;
+            border-color: #3b82f6; /* blue-500 */
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.4); /* ring-blue-300 */
+        }
     </style>
 </head>
 <body class="flex flex-col items-center justify-center min-h-screen p-4">
@@ -33,7 +53,8 @@
     <div class="bg-white p-8 rounded-2xl shadow-xl max-w-2xl w-full text-center">
         <h1 class="text-4xl font-extrabold text-gray-800 mb-6">Mi Entrenador Personal</h1>
 
-        <div id="user-selection" class="mb-8 flex flex-col sm:flex-row justify-center gap-4">
+        <!-- User Selection Buttons -->
+        <div id="user-selection" class="mb-6 flex flex-col sm:flex-row justify-center gap-4">
             <button id="select-elena" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-blue-300">
                 Ver Entrenamiento de Elena
             </button>
@@ -42,10 +63,20 @@
             </button>
         </div>
 
-        <div id="training-display" class="bg-gray-50 p-6 rounded-xl border border-gray-200 text-left min-h-[200px] flex flex-col justify-center items-center">
+        <!-- Date Selector -->
+        <div class="mb-8 flex flex-col sm:flex-row justify-center items-center gap-4">
+            <label for="training-date" class="text-gray-700 font-medium text-lg">Fecha del Entrenamiento:</label>
+            <input type="date" id="training-date" class="py-3 px-5 rounded-xl border border-gray-300 text-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500">
+            <button id="show-training" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition duration-300 ease-in-out transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-purple-300 mt-4 sm:mt-0">
+                Mostrar Entrenamiento
+            </button>
+        </div>
+
+        <!-- Training Display Area -->
+        <div id="training-display" class="bg-gray-50 p-6 rounded-xl border border-gray-200 text-left min-h-[150px] flex flex-col justify-center items-center">
             <p id="training-content" class="text-gray-700 text-lg leading-relaxed"></p>
             <p id="no-training-message" class="text-gray-500 text-md italic hidden mt-4">
-                No hay entrenamiento programado para hoy. Por favor, selecciona un usuario.
+                No hay entrenamiento programado para hoy. Por favor, selecciona un usuario y una fecha.
             </p>
         </div>
     </div>
@@ -108,7 +139,7 @@
             { ID: 107, Fecha: '2025-07-20', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 1, Mesociclo 1 (Semanas 1-3) - Día 7: Descanso Total. Descanso Total (Todo el día).' },
             { ID: 108, Fecha: '2025-07-21', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 1, Mesociclo 2 (Semanas 5-7) - Día 1: Gimnasio (Tren Inferior y Core - Unilateral). Calentamiento General + Movilidad de Tobillo y Cadera (10 min). Activación de Glúteos: Banded Glute Bridges (3 sets x 15 reps, Tempo 2-0-1-0, Descanso 30s). Activación de Core: Side Plank con elevación de cadera (3 sets x 10-12/lado reps, Tempo Controlado, Descanso 45s/lado). Zancada Inversa con Mancuernas Ligeras / Zancada Inversa con Peso Corporal (EC): 3 sets x 10-12/lado reps, RPE 7, Tempo 2-0-1-0, Descanso 60-90s/lado. Peso Muerto Rumano a una Pierna con Mancuerna Ligera / Bisagra de Cadera a una Pierna con Palo (EC): 3 sets x 8-10/lado reps, RPE 7, Tempo 3-0-1-0, Descanso 60-90s/lado. Prensa de Piernas (Máquina) / Sentadilla Búlgara con Peso Corporal (EC): 3 sets x 12-15 reps, RPE 7-8, Tempo 2-0-1-0, Descanso 60s. Curl Femoral Sentado/Tumbado (Máquina) / Curl Femoral con Banda (EC): 3 sets x 12-15 reps, RPE 7-8, Tempo 2-0-1-0, Descanso 45-60s. Elevaciones de Gemelos de Pie (a una pierna) (3 sets x 12-15/lado reps, RPE 7-8, Tempo 2-0-1-0, Descanso 30s/lado). Enfriamiento: Estiramientos suaves (5 min).' },
             { ID: 109, Fecha: '2025-07-22', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 1, Mesociclo 2 (Semanas 5-7) - Día 2: Carrera (Trote Continuo) o Cross-Training. Calentamiento: Caminata rápida (5 min, Fácil). Trote continuo (15-20 min, Fácil, Opcional: Sustituir por 45-60 min de Ciclismo o Natación). Enfriamiento: Caminata (5-10 min, Fácil), Estiramientos suaves de piernas.' },
-            { ID: 110, Fecha: '2025-07-23', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 1, Mesociclo 2 (Semanas 5-7) - Día 3: Gimnasio (Tren Superior y Core). Calentamiento General + Movilidad de Hombros (10 min). Plancha con Deslizamiento de Pies (con toalla/calcetines) (3 sets x 10-12 reps, RPE 7, Descanso 45s). Remo en Polea Baja (o máquina de remo) / Remo con Banda Elástica Sentado (EC): 3 sets x 10-12 reps, RPE 7-8, Tempo 2-0-1-0, Descanso 60-90s. Press de Pecho Inclinado con Mancuernas / Flexiones con Pies Elevados (EC): 3 sets x 10-12 reps, RPE 7-8, Tempo 3-0-1-0, Descanso 60-90s. Press de Hombros de Pie con Mancuernas Ligeras / Flexiones Inclinadas con Pies Elevados (EC): 3 sets x 8-10 reps, RPE 7, Tempo 2-0-1-0, Descanso 60-90s. Elevaciones Laterales con Mancuernas Ligeras / Elevaciones Laterales con Banda (EC): 3 sets x 12-15 reps, RPE 7, Tempo 2-0-1-0, Descanso 45-60s. Wood Chops con Cable (o banda) / Wood Chops con Banda (EC): 3 sets x 10-12/lado reps, RPE 7, Descanso 45s/lado. Enfriamiento: Estiramientos suaves (5 min).' },
+            { ID: 110, Fecha: '2025-07-23', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 1, Mesociclo 2 (Semanas 5-7) - Día 3: Gimnasio (Tren Superior y Core). Calentamiento General + Movilidad de Hombros (10 min). Plancha con Deslizamiento de Pies (con toalla/calcetines) (3 sets x 10-12 reps, RPE 7, Descanso 45s). Remo en Polea Baja (o máquina de remo) / Remo con Banda Elástica Sentado (EC): 3 sets x 10-12 reps, RPE 7-8, Tempo 2-0-1-0, Descanso 60-90s. Press de Pecho Inclinado con Mancuernas / Flexiones con Pies Elevados (EC): 3 sets x 10-12 reps, RPE 7-8, Tempo 3-0-1-0, Descanso 60-90s. Press de Hombros de Pie con Mancuernas Ligeras / Flexiones Inclinadas contra Pared/Mesa (EC): 3 sets x 8-10 reps, RPE 7, Tempo 2-0-1-0, Descanso 60-90s. Elevaciones Laterales con Mancuernas Ligeras / Elevaciones Laterales con Banda (EC): 3 sets x 12-15 reps, RPE 7, Tempo 2-0-1-0, Descanso 45-60s. Wood Chops con Cable (o banda) / Wood Chops con Banda (EC): 3 sets x 10-12/lado reps, RPE 7, Descanso 45s/lado. Enfriamiento: Estiramientos suaves (5 min).' },
             { ID: 111, Fecha: '2025-07-24', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 1, Mesociclo 2 (Semanas 5-7) - Día 4: Carrera (Trote Continuo) o Cross-Training. Calentamiento: Caminata rápida (5 min, Fácil). Trote continuo (20-25 min, Fácil, Aumentar 5 min cada semana. Opcional: Sustituir por 45-60 min de Ciclismo o Natación). Enfriamiento: Caminata (5-10 min, Fácil), Estiramientos suaves de piernas.' },
             { ID: 112, Fecha: '2025-07-25', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 1, Mesociclo 2 (Semanas 5-7) - Día 5: Gimnasio (Full Body y Estabilidad). Calentamiento General + Movilidad de Cadera (10 min). Sentadilla Goblet / Sentadilla Sumo con Mancuerna (EC): 3 sets x 10-12 reps, RPE 7-8, Tempo 3-0-1-0, Descanso 60-90s. Plancha con Elevación de Pierna Alterna (3 sets x 30-40s, RPE 7, Descanso 45s). Bird-Dog con Resistencia de Banda (3 sets x 10-12/lado reps, Tempo Lento, Descanso 30s). Caminata de Cangrejo con Banda (3 sets x 10-15 pasos/lado, RPE 7, Descanso 45s/lado). Enfriamiento: Estiramientos (5 min).' },
             { ID: 113, Fecha: '2025-07-26', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 1, Mesociclo 2 (Semanas 5-7) - Día 6: Carrera (Trote Continuo) o Cross-Training. Calentamiento: Caminata rápida (5 min, Fácil). Trote continuo (20-25 min, Fácil, Aumentar 5 min cada semana. Opcional: Sustituir por 45-60 min de Ciclismo o Natación). Enfriamiento: Caminata (5-10 min, Fácil), Estiramientos suaves de piernas.' },
@@ -167,7 +198,7 @@
             { ID: 166, Fecha: '2025-09-17', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 4, Semana 29: Tapering (Reducción Moderada) - Día 3: Gimnasio (Tren Superior y Core). Calentamiento General + Movilidad (10 min). Plancha Lateral (3 sets x 30-45s/lado, RPE 7, Descanso 45s/lado). Remo en Máquina (moderado) / Remo con Banda (EC): 3 sets x 10-12 reps, RPE 7, Tempo 2-0-1-0, Descanso 60-90s. Press de Pecho con Mancuernas (moderado) / Flexiones Inclinadas (EC): 3 sets x 10-12 reps, RPE 7, Tempo 3-0-1-0, Descanso 60-90s. Press de Hombros Sentado con Mancuernas (moderado) / Elevaciones Frontales y Laterales (EC): 3 sets x 10-12 reps, RPE 7, Tempo 2-0-1-0, Descanso 60-90s. Paseo del Granjero con Mancuernas (ligero) (3 sets x 40-50m, RPE 6, Descanso 60s). Enfriamiento: Estiramientos suaves (5 min).' },
             { ID: 167, Fecha: '2025-09-18', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 4, Semana 29: Tapering (Reducción Moderada) - Día 4: Carrera (Tirada Larga Reducida) o Cross-Training. Calentamiento: Trote suave (10 min, Fácil). Trote continuo (60-90 min, Fácil, Reducir el volumen, mantener la sensación. Opcional: Sustituir por 60-75 min de Ciclismo o Natación). Enfriamiento: Caminata (5-10 min, Fácil), Estiramientos suaves de piernas.' },
             { ID: 168, Fecha: '2025-09-19', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 4, Semana 29: Tapering (Reducción Moderada) - Día 5: Gimnasio (Full Body y Estabilidad). Calentamiento General + Movilidad de Cadera (10 min). Hip Thrust con Barra / Puente de Glúteos con Elevación de Pierna y Pausa (EC): 3 sets x 10-12 reps, RPE 7-8, Tempo 2-0-1-0, Descanso 60-90s. Zancadas Caminando con Mancuernas (3 sets x 10-12/lado reps, RPE 7-8, Tempo 2-0-1-0, Descanso 60-90s/lado). Plancha con Rotación de Cadera (3 sets x 10-12/lado reps, RPE 7-8, Descanso 45s/lado). Enfriamiento: Estiramientos (5 min).' },
-            { ID: 169, Fecha: '2025-09-20', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 4, Semana 29: Tapering (Reducción Moderada) - Día 6: Carrera (Ritmo Moderado) o Cross-Training. Calentamiento: Trote suave (10 min, Fácil). Trote continuo (45-60 min, Moderado, Opcional: Sustituir por 60-75 min de Ciclismo o Natación). Enfriamiento: Caminata (5-10 min, Fácil), Estiramientos suaves de piernas.' },
+            { ID: 169, Fecha: '2025-09-20', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 4, Semana 29: Tapering (Reducción Moderada) - Día 6: Carrera (Ritmo Moderado) o Cross-Training. Calentamiento: Trote suave (10 min, Fácil). Trote continuo (45-60 min, Moderado, Opcional: Sustituir por 30-45 min de Ciclismo o Natación). Enfriamiento: Caminata (5-10 min, Fácil), Estiramientos suaves de piernas.' },
             { ID: 170, Fecha: '2025-09-21', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 4, Semana 29: Tapering (Reducción Moderada) - Día 7: Descanso Total. Descanso Total (Todo el día).' },
             { ID: 171, Fecha: '2025-09-22', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 4, Semana 30: Tapering (Reducción Significativa) - Día 1: Gimnasio (Tren Inferior y Core - Mantenimiento Ligero). Calentamiento General + Movilidad (10 min). Sentadilla Goblet (muy ligera) / Sentadilla con Peso Corporal (EC): 2 sets x 10-12 reps, RPE 5-6, Tempo 3-0-1-0, Descanso 60s. Peso Muerto Rumano con Mancuernas (muy ligeras) / Bisagra de Cadera (EC): 2 sets x 10-12 reps, RPE 5-6, Tempo 3-0-1-0, Descanso 60s. Prensa de Piernas (Máquina, muy ligera) / Sentadilla Isométrica en Pared (EC): 2 sets x 12-15 reps, RPE 5-6, Tempo 2-0-1-0, Descanso 45s. Enfriamiento: Estiramientos suaves (5 min).' },
             { ID: 172, Fecha: '2025-09-23', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 4, Semana 30: Tapering (Reducción Significativa) - Día 2: Carrera (Ritmo Maratón Muy Corto) o Cross-Training. Calentamiento: Trote suave (5 min, Fácil). Ritmo Maratón (15-20 min, Maratón, Opcional: Sustituir por 30-45 min de Ciclismo o Natación (con bloques de ritmo)). Enfriamiento: Trote suave + Caminata (5 min, Fácil).' },
@@ -318,8 +349,12 @@
             { ID: 317, Fecha: '2026-02-15', Usuario: 'Nico', DescripcionEntrenamiento: 'Bloque 4, Semanas 35-48 (Post-Maratón): Reintroducción gradual del trote (15-20 min, fácil) 2 veces por semana. 1-2 sesiones de gimnasio con ejercicios de base (RPE 6). Continuar con cross-training.' },
         ];
 
+        let selectedUser = null; // Variable para almacenar el usuario seleccionado
+
         const elenaButton = document.getElementById('select-elena');
         const nicoButton = document.getElementById('select-nico');
+        const trainingDateInput = document.getElementById('training-date');
+        const showTrainingButton = document.getElementById('show-training');
         const trainingContent = document.getElementById('training-content');
         const noTrainingMessage = document.getElementById('no-training-message');
 
@@ -336,16 +371,21 @@
         }
 
         /**
-         * Muestra el entrenamiento para el usuario y la fecha actuales.
+         * Muestra el entrenamiento para el usuario y la fecha seleccionados.
          * @param {string} user - El nombre del usuario ('Elena' o 'Nico').
+         * @param {string} dateString - La fecha en formato 'YYYY-MM-DD'.
          */
-        function displayTraining(user) {
-            const today = new Date();
-            const formattedToday = formatDate(today);
+        function displayTraining(user, dateString) {
+            if (!user || !dateString) {
+                trainingContent.textContent = '';
+                noTrainingMessage.classList.remove('hidden');
+                noTrainingMessage.textContent = 'Por favor, selecciona un usuario y una fecha.';
+                return;
+            }
 
-            // Buscar el entrenamiento para el usuario y la fecha de hoy
+            // Buscar el entrenamiento para el usuario y la fecha
             const dailyTraining = trainingData.find(
-                t => t.Usuario === user && t.Fecha === formattedToday
+                t => t.Usuario === user && t.Fecha === dateString
             );
 
             if (dailyTraining) {
@@ -356,16 +396,51 @@
                 trainingContent.textContent = '';
                 trainingContent.classList.add('hidden');
                 noTrainingMessage.classList.remove('hidden');
-                noTrainingMessage.textContent = `No hay entrenamiento programado para ${user} hoy (${formattedToday}).`;
+                noTrainingMessage.textContent = `No hay entrenamiento programado para ${user} el ${dateString}.`;
             }
         }
 
-        // Añadir event listeners a los botones
-        elenaButton.addEventListener('click', () => displayTraining('Elena'));
-        nicoButton.addEventListener('click', () => displayTraining('Nico'));
+        // Función para manejar la selección de usuario
+        function handleUserSelection(user) {
+            selectedUser = user;
+            // Resaltar el botón seleccionado
+            elenaButton.classList.remove('bg-blue-800');
+            nicoButton.classList.remove('bg-green-800');
+            if (user === 'Elena') {
+                elenaButton.classList.add('bg-blue-800');
+            } else {
+                nicoButton.classList.add('bg-green-800');
+            }
+            // Intentar mostrar el entrenamiento si ya hay una fecha seleccionada
+            if (trainingDateInput.value) {
+                displayTraining(selectedUser, trainingDateInput.value);
+            } else {
+                trainingContent.textContent = 'Ahora selecciona una fecha para ver el entrenamiento.';
+                noTrainingMessage.classList.add('hidden');
+            }
+        }
+
+        // Añadir event listeners a los botones de usuario
+        elenaButton.addEventListener('click', () => handleUserSelection('Elena'));
+        nicoButton.addEventListener('click', () => handleUserSelection('Nico'));
+
+        // Añadir event listener al botón "Mostrar Entrenamiento"
+        showTrainingButton.addEventListener('click', () => {
+            const selectedDate = trainingDateInput.value;
+            if (selectedUser && selectedDate) {
+                displayTraining(selectedUser, selectedDate);
+            } else {
+                trainingContent.textContent = '';
+                noTrainingMessage.classList.remove('hidden');
+                noTrainingMessage.textContent = 'Por favor, selecciona un usuario y una fecha.';
+            }
+        });
+
+        // Establecer la fecha actual por defecto en el input de fecha
+        trainingDateInput.value = formatDate(new Date());
 
         // Mensaje inicial al cargar la página
-        trainingContent.textContent = 'Selecciona a Elena o Nico para ver su entrenamiento del día.';
+        trainingContent.textContent = 'Selecciona un usuario y una fecha para ver el entrenamiento.';
         noTrainingMessage.classList.add('hidden'); // Ensure it's hidden initially
     </script>
 </body>
